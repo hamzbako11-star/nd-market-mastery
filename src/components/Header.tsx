@@ -83,7 +83,7 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
             {/* Telegram Shortcut */}
             <a
               id="header-telegram-shortcut"
-              href="https://t.me/ndmarketmastery"
+              href="https://t.me/NdSuperMarketMastery"
               target="_blank"
               rel="noopener noreferrer"
               className={`p-2 rounded-xl transition-all ${
@@ -176,7 +176,7 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
             <div className="pt-4 border-t border-neutral-800/20 grid grid-cols-2 gap-2">
               <a
                 id="mobile-telegram-channel-btn"
-                href="https://t.me/ndmarketmastery"
+                href="https://t.me/NdSuperMarketMastery"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`flex items-center justify-center gap-2 py-2 px-4 rounded-lg text-xs font-bold transition-all ${

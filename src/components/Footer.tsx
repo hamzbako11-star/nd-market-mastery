@@ -70,7 +70,7 @@ export default function Footer({ theme }: FooterProps) {
             <div className="flex gap-2">
               <a
                 id="footer-telegram-link"
-                href="https://t.me/ndmarketmastery"
+                href="https://t.me/NdSuperMarketMastery"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-lg bg-neutral-900 border border-neutral-850 hover:text-blue-400 hover:bg-neutral-800 text-neutral-300 transition-all"

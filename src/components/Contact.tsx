@@ -83,7 +83,7 @@ export default function Contact({ theme }: ContactProps) {
 
   const socialLinks = [
     { name: 'WhatsApp', href: 'https://wa.me/447000000000', icon: <MessageCircle size={18} />, color: 'text-emerald-500 hover:bg-emerald-500/10' },
-    { name: 'Telegram', href: 'https://t.me/ndmarketmastery', icon: <TelegramIcon size={18} />, color: 'text-blue-400 hover:bg-blue-400/10' },
+    { name: 'Telegram', href: 'https://t.me/NdSuperMarketMastery', icon: <TelegramIcon size={18} />, color: 'text-blue-400 hover:bg-blue-400/10' },
     { name: 'Instagram', href: 'https://instagram.com/ndmarketmastery', icon: <Instagram size={18} />, color: 'text-pink-500 hover:bg-pink-500/10' },
     { name: 'TikTok', href: 'https://tiktok.com/@ndmarketmastery', icon: <span className="font-extrabold text-xs">TT</span>, color: 'text-neutral-200 hover:bg-neutral-800' },
     { name: 'Facebook', href: 'https://facebook.com/ndmarketmastery', icon: <Facebook size={18} />, color: 'text-blue-600 hover:bg-blue-600/10' },

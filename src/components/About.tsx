@@ -1,12 +1,12 @@
 import { Theme } from '../types';
 import { Target, Compass, Award, ShieldCheck } from 'lucide-react';
+import lifestyleImage from '../assets/images/trading_lifestyle_1782950094741.jpg';
 
 interface AboutProps {
   theme: Theme;
 }
 
 export default function About({ theme }: AboutProps) {
-  const lifestyleImage = '/src/assets/images/trading_lifestyle_1782950094741.jpg';
 
   const pillars = [
     {

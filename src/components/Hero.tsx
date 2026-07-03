@@ -1,6 +1,7 @@
 import { Theme } from '../types';
 import { ArrowRight, Sparkles, Shield, DollarSign, TrendingUp, HelpCircle } from 'lucide-react';
 import { motion } from 'motion/react';
+import heroImage from '../assets/images/hero_trading_chart_1782950067661.jpg';
 
 interface HeroProps {
   theme: Theme;
@@ -8,7 +9,6 @@ interface HeroProps {
 
 export default function Hero({ theme }: HeroProps) {
   // Let's use our generated high-fidelity hero chart image
-  const heroImage = '/src/assets/images/hero_trading_chart_1782950067661.jpg';
 
   // Currency tags that float around
   const floaters = [

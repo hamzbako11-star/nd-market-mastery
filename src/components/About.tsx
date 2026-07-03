@@ -38,7 +38,7 @@ export default function About({ theme }: AboutProps) {
           <h2 className={`text-3xl sm:text-4xl font-sans font-black tracking-tight uppercase mt-2 ${
             theme === 'dark' ? 'text-white' : 'text-neutral-950'
           }`}>
-            ABOUT ND MARKET MASTERY
+            ABOUT ND SUPER MARKET MASTERY
           </h2>
           <div className="w-12 h-1 bg-blue-600 mx-auto mt-4 rounded-full" />
         </div>
@@ -60,7 +60,7 @@ export default function About({ theme }: AboutProps) {
               }`}>
                 <img
                   src={lifestyleImage}
-                  alt="ND Market Mastery Executive Workspace"
+                  alt="ND Super Market Mastery Executive Workspace"
                   referrerPolicy="no-referrer"
                   className="w-full aspect-[4/3] object-cover hover:scale-[1.03] transition-transform duration-700"
                 />
@@ -100,7 +100,7 @@ export default function About({ theme }: AboutProps) {
             <p className={`text-sm sm:text-base leading-relaxed mb-8 ${
               theme === 'dark' ? 'text-neutral-400' : 'text-neutral-600'
             }`}>
-              ND Market Mastery is a premier forex education company dedicated to helping retail traders transition into consistent profitability. We deliver structured education, direct mentorship, and live market trade recaps. We do not sell get-rich-quick indicator schemes. We build deep structural competency.
+              ND Super Market Mastery is a premier forex education company dedicated to helping retail traders transition into consistent profitability. We deliver structured education, direct mentorship, and live market trade recaps. We do not sell get-rich-quick indicator schemes. We build deep structural competency.
             </p>
 
             {/* Mission & Vision Pillars */}

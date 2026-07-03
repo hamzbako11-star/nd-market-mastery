@@ -290,7 +290,7 @@ export const TESTIMONIALS: Testimonial[] = [
     winrate: '72%',
     before: 'Retail Indicators, -5% monthly',
     after: 'Funded $100K Trader, +8% monthly',
-    text: 'ND Market Mastery completely shifted how I view charts. Understanding liquidity and premium/discount zones changed everything. I am now officially funded with FTMO and making consistent payouts!',
+    text: 'ND Super Market Mastery completely shifted how I view charts. Understanding liquidity and premium/discount zones changed everything. I am now officially funded with FTMO and making consistent payouts!',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
     date: 'June 2026'
   },
@@ -361,7 +361,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
 
 export const FAQ_ITEMS: FAQItem[] = [
   {
-    question: 'Do I need prior experience to join ND Market Mastery?',
+    question: 'Do I need prior experience to join ND Super Market Mastery?',
     answer: 'Absolutely not. Our curriculum starts from Phase 1 (Forex Foundations) which explains basic terms, and systematically advances to elite institutional level setups. We will guide you from complete scratch.'
   },
   {

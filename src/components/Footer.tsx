@@ -31,7 +31,7 @@ export default function Footer({ theme }: FooterProps) {
               </div>
               <div className="flex flex-col">
                 <span className="text-sm font-black tracking-widest text-white uppercase">
-                  ND MARKET MASTERY
+                  ND SUPER MARKET MASTERY
                 </span>
                 <span className="text-[9px] text-blue-500 font-bold tracking-widest uppercase">
                   FOREX EDUCATION & MENTORSHIP
@@ -114,14 +114,14 @@ export default function Footer({ theme }: FooterProps) {
             IMPORTANT REGULATORY RISK WARNING DISCLAIMER
           </span>
           <p className="text-[10px] leading-relaxed text-neutral-500 font-sans">
-            Trading foreign exchange (Forex) and Contracts for Difference (CFDs) on margin carries a high level of risk, and may not be suitable for all investors. The high degree of leverage can work against you as well as for you. Before deciding to trade foreign exchange you should carefully consider your investment objectives, level of experience, and risk appetite. The possibility exists that you could sustain a loss of some or all of your initial investment and therefore you should not invest money that you cannot afford to lose. All materials, chart examples, setups, markup analysis, and video lectures provided by ND Market Mastery are for educational, training, and theoretical simulation purposes only, and do not constitute financial advice, signals, or solicitation to trade actual capital.
+            Trading foreign exchange (Forex) and Contracts for Difference (CFDs) on margin carries a high level of risk, and may not be suitable for all investors. The high degree of leverage can work against you as well as for you. Before deciding to trade foreign exchange you should carefully consider your investment objectives, level of experience, and risk appetite. The possibility exists that you could sustain a loss of some or all of your initial investment and therefore you should not invest money that you cannot afford to lose. All materials, chart examples, setups, markup analysis, and video lectures provided by ND Super Market Mastery are for educational, training, and theoretical simulation purposes only, and do not constitute financial advice, signals, or solicitation to trade actual capital.
           </p>
         </div>
 
         {/* Bottom Segment: Credits, Legal policies and copyrights */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] text-neutral-500 font-mono">
           <div>
-            © {new Date().getFullYear()} ND Market Mastery. All rights reserved.
+            © {new Date().getFullYear()} ND Super Market Mastery. All rights reserved.
           </div>
           <div className="flex gap-4">
             <a href="#about" className="hover:text-neutral-300 transition-colors">Privacy Policy</a>

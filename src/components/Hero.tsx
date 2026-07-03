@@ -171,7 +171,7 @@ export default function Hero({ theme }: HeroProps) {
                 <div className="relative aspect-video overflow-hidden group">
                   <img
                     src={heroImage}
-                    alt="ND Market Mastery Elite Chart Dashboard"
+                    alt="ND Super Market Mastery Elite Chart Dashboard"
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
                   />

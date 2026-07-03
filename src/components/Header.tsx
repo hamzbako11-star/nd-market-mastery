@@ -54,7 +54,7 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
                 <span className={`text-sm font-black tracking-widest ${
                   theme === 'dark' ? 'text-white' : 'text-neutral-950'
                 }`}>
-                  MARKET MASTERY
+                  SUPER MARKET MASTERY
                 </span>
                 <span className="text-[9px] text-blue-500 font-bold tracking-widest uppercase">
                   FOREX EDUCATION & MENTORSHIP

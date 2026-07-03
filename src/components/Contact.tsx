@@ -84,9 +84,9 @@ export default function Contact({ theme }: ContactProps) {
   const socialLinks = [
     { name: 'WhatsApp', href: 'https://wa.me/447000000000', icon: <MessageCircle size={18} />, color: 'text-emerald-500 hover:bg-emerald-500/10' },
     { name: 'Telegram', href: 'https://t.me/NdSuperMarketMastery', icon: <TelegramIcon size={18} />, color: 'text-blue-400 hover:bg-blue-400/10' },
-    { name: 'Instagram', href: 'https://instagram.com/ndmarketmastery', icon: <Instagram size={18} />, color: 'text-pink-500 hover:bg-pink-500/10' },
-    { name: 'TikTok', href: 'https://tiktok.com/@ndmarketmastery', icon: <span className="font-extrabold text-xs">TT</span>, color: 'text-neutral-200 hover:bg-neutral-800' },
-    { name: 'Facebook', href: 'https://facebook.com/ndmarketmastery', icon: <Facebook size={18} />, color: 'text-blue-600 hover:bg-blue-600/10' },
+    { name: 'Instagram', href: 'https://instagram.com/ndsupermarketmastery', icon: <Instagram size={18} />, color: 'text-pink-500 hover:bg-pink-500/10' },
+    { name: 'TikTok', href: 'https://tiktok.com/@ndsupermarketmastery', icon: <span className="font-extrabold text-xs">TT</span>, color: 'text-neutral-200 hover:bg-neutral-800' },
+    { name: 'Facebook', href: 'https://facebook.com/ndsupermarketmastery', icon: <Facebook size={18} />, color: 'text-blue-600 hover:bg-blue-600/10' },
   ];
 
   return (
@@ -141,8 +141,8 @@ export default function Contact({ theme }: ContactProps) {
                   <Mail size={16} className="text-blue-500 shrink-0 mt-0.5" />
                   <div>
                     <span className="text-[10px] text-neutral-500 font-bold uppercase tracking-wider block">Email Support</span>
-                    <a href="mailto:support@ndmarketmastery.com" className="text-xs text-blue-400 hover:underline">
-                      support@ndmarketmastery.com
+                    <a href="mailto:support@ndsupermarketmastery.com" className="text-xs text-blue-400 hover:underline">
+                      support@ndsupermarketmastery.com
                     </a>
                   </div>
                 </div>
@@ -152,7 +152,7 @@ export default function Contact({ theme }: ContactProps) {
                   <div>
                     <span className="text-[10px] text-neutral-500 font-bold uppercase tracking-wider block">Direct Telegram Hotline</span>
                     <span className={`text-xs ${theme === 'dark' ? 'text-neutral-300' : 'text-neutral-800'}`}>
-                      @ndmarketmastery_support
+                      @ndsupermarketmastery_support
                     </span>
                   </div>
                 </div>

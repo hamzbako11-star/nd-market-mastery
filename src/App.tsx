@@ -84,7 +84,7 @@ export default function App() {
               Interact with our proprietary ND Terminal below. Setup a trade layout and press simulation to experience mechanical order flow fill patterns.
             </p>
           </div>
-          <InteractiveChart />
+          <InteractiveChart theme={theme} />
         </div>
       </section>
 

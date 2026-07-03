@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Play, RotateCcw, TrendingUp, TrendingDown, Eye, Check, Info } from 'lucide-react';
+import { Play, RotateCcw, TrendingUp, TrendingDown, Eye, Check, Info, ExternalLink, BarChart3 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface Candle {
@@ -100,7 +100,8 @@ const SIMULATION_STEPS: Candle[] = [
   { time: 'Sim +5H', open: 1.0875, high: 1.0880, low: 1.0840, close: 1.0848, volume: 320 },
 ];
 
-export default function InteractiveChart() {
+export default function InteractiveChart({ theme = 'dark' }: { theme?: 'dark' | 'light' }) {
+  const [viewMode, setViewMode] = useState<'simulation' | 'tradingview'>('simulation');
   const [pair, setPair] = useState<'EURUSD' | 'GBPUSD' | 'XAUUSD'>('EURUSD');
   const [timeframe, setTimeframe] = useState<'1H' | '4H'>('1H');
   const [tool, setTool] = useState<'none' | 'long' | 'short'>('none');
@@ -361,6 +362,10 @@ export default function InteractiveChart() {
   const reward = Math.abs(takeProfit - entryPrice);
   const riskRewardRatio = (reward / (risk || 1)).toFixed(2);
 
+  // TradingView widget parameters
+  const tvSymbol = pair === 'EURUSD' ? 'OANDA:EURUSD' : pair === 'GBPUSD' ? 'OANDA:GBPUSD' : 'OANDA:XAUUSD';
+  const tvInterval = timeframe === '1H' ? '60' : '240';
+
   return (
     <div id="interactive-chart-section" className="w-full bg-neutral-950 border border-neutral-800 rounded-2xl p-4 md:p-6 shadow-2xl relative overflow-hidden">
       {/* Decorative Glow background */}
@@ -424,10 +429,39 @@ export default function InteractiveChart() {
         </div>
       </div>
 
+      {/* Mode Tab Switcher */}
+      <div className="flex flex-wrap gap-2 pb-4 mb-4 border-b border-neutral-800/60">
+        <button
+          id="mode-tab-simulation"
+          onClick={() => setViewMode('simulation')}
+          className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-1.5 transition-all ${
+            viewMode === 'simulation'
+              ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25'
+              : 'bg-neutral-900 text-neutral-400 hover:text-white border border-neutral-800'
+          }`}
+        >
+          📊 Order Flow Sandbox
+        </button>
+        <button
+          id="mode-tab-tradingview"
+          onClick={() => setViewMode('tradingview')}
+          className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-1.5 transition-all ${
+            viewMode === 'tradingview'
+              ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25'
+              : 'bg-neutral-900 text-neutral-400 hover:text-white border border-neutral-800'
+          }`}
+        >
+          📈 TradingView Real Live
+        </button>
+      </div>
+
       {/* Main Graph Grid */}
-      <div className="relative border border-neutral-800 rounded-xl bg-neutral-950/80 overflow-hidden backdrop-blur-sm">
-        
-        {/* Sim Result Overlays */}
+      <div className={`relative border rounded-xl overflow-hidden backdrop-blur-sm ${
+        theme === 'dark' ? 'bg-neutral-950/80 border-neutral-800' : 'bg-white border-neutral-200 shadow-sm'
+      }`}>
+        {viewMode === 'simulation' ? (
+          <>
+            {/* Sim Result Overlays */}
         <AnimatePresence>
           {simResult !== 'none' && (
             <motion.div
@@ -685,100 +719,147 @@ export default function InteractiveChart() {
             )}
           </svg>
         </div>
-      </div>
+        </>
+      ) : (
+        /* TRADINGVIEW REAL CHART */
+        <div className="w-full h-[400px] relative">
+          <iframe
+            title="TradingView Real-Time Chart"
+            src={`https://s.tradingview.com/widgetembed/?symbol=${tvSymbol}&interval=${tvInterval}&theme=${theme}&style=1&timezone=Etc%2FUTC&studies=%5B%5D&locale=en`}
+            className="w-full h-full border-0 absolute inset-0 bg-neutral-950"
+            style={{ minHeight: '400px' }}
+            allowFullScreen
+          />
+        </div>
+      )}
+    </div>
 
       {/* Trade Presets & Controls */}
-      <div className="mt-4 grid grid-cols-1 md:grid-cols-3 items-center gap-4 bg-neutral-900/60 p-4 border border-neutral-800 rounded-xl">
-        {/* Preset Selectors */}
-        <div className="flex flex-col gap-1">
-          <span className="text-[10px] font-mono tracking-wider text-neutral-500 uppercase">1. Position Setup</span>
-          <div className="flex gap-2">
-            <button
-              id="trade-preset-long-btn"
-              onClick={() => handleSetupTrade('long')}
-              disabled={isSimulating}
-              className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold border transition-all ${
-                activePreset === 'long'
-                  ? 'bg-emerald-600 border-emerald-500 text-white shadow-lg shadow-emerald-950/40'
-                  : 'bg-neutral-950 border-neutral-800 text-neutral-300 hover:text-white disabled:opacity-50'
-              }`}
-            >
-              <TrendingUp size={14} /> Buy Setup (Long)
-            </button>
-            <button
-              id="trade-preset-short-btn"
-              onClick={() => handleSetupTrade('short')}
-              disabled={isSimulating}
-              className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold border transition-all ${
-                activePreset === 'short'
-                  ? 'bg-red-600 border-red-500 text-white shadow-lg shadow-red-950/40'
-                  : 'bg-neutral-950 border-neutral-800 text-neutral-300 hover:text-white disabled:opacity-50'
-              }`}
-            >
-              <TrendingDown size={14} /> Sell Setup (Short)
-            </button>
-          </div>
-        </div>
+      {viewMode === 'simulation' ? (
+        <>
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-3 items-center gap-4 bg-neutral-900/60 p-4 border border-neutral-800 rounded-xl">
+            {/* Preset Selectors */}
+            <div className="flex flex-col gap-1">
+              <span className="text-[10px] font-mono tracking-wider text-neutral-500 uppercase">1. Position Setup</span>
+              <div className="flex gap-2">
+                <button
+                  id="trade-preset-long-btn"
+                  onClick={() => handleSetupTrade('long')}
+                  disabled={isSimulating}
+                  className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold border transition-all ${
+                    activePreset === 'long'
+                      ? 'bg-emerald-600 border-emerald-500 text-white shadow-lg shadow-emerald-950/40'
+                      : 'bg-neutral-950 border-neutral-800 text-neutral-300 hover:text-white disabled:opacity-50'
+                  }`}
+                >
+                  <TrendingUp size={14} /> Buy Setup (Long)
+                </button>
+                <button
+                  id="trade-preset-short-btn"
+                  onClick={() => handleSetupTrade('short')}
+                  disabled={isSimulating}
+                  className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold border transition-all ${
+                    activePreset === 'short'
+                      ? 'bg-red-600 border-red-500 text-white shadow-lg shadow-red-950/40'
+                      : 'bg-neutral-950 border-neutral-800 text-neutral-300 hover:text-white disabled:opacity-50'
+                  }`}
+                >
+                  <TrendingDown size={14} /> Sell Setup (Short)
+                </button>
+              </div>
+            </div>
 
-        {/* Trade Info Stat display */}
-        <div className="flex items-center justify-around border-y md:border-y-0 md:border-x border-neutral-800 py-2 md:py-0">
-          <div className="text-center">
-            <div className="text-[9px] font-mono text-neutral-500 tracking-wider uppercase">Risk-Reward</div>
-            <div className="text-sm font-bold font-mono text-white">
-              {activePreset !== 'none' ? `1 : ${riskRewardRatio}` : '—'}
+            {/* Trade Info display */}
+            <div className="flex items-center justify-around border-y md:border-y-0 md:border-x border-neutral-800 py-2 md:py-0">
+              <div className="text-center">
+                <div className="text-[9px] font-mono text-neutral-500 tracking-wider uppercase">Risk-Reward</div>
+                <div className="text-sm font-bold font-mono text-white">
+                  {activePreset !== 'none' ? `1 : ${riskRewardRatio}` : '—'}
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-[9px] font-mono text-neutral-500 tracking-wider uppercase">Risk Model</div>
+                <div className="text-sm font-bold font-mono text-emerald-400">
+                  {activePreset !== 'none' ? 'Strict 1.0%' : '—'}
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-[9px] font-mono text-neutral-500 tracking-wider uppercase">Setup Quality</div>
+                <div className="text-sm font-bold font-mono text-blue-400">
+                  {activePreset !== 'none' ? 'A+ Institutional' : '—'}
+                </div>
+              </div>
+            </div>
+
+            {/* Simulation Actions */}
+            <div className="flex gap-2">
+              <button
+                id="run-trade-sim-btn"
+                onClick={playSimulation}
+                disabled={isSimulating || activePreset === 'none'}
+                className="flex-1 py-2.5 px-4 rounded-lg text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white border border-blue-500 hover:border-blue-400 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-blue-950/50 flex items-center justify-center gap-2"
+              >
+                <Play size={14} className={isSimulating ? 'animate-pulse' : ''} />
+                {isSimulating ? 'Simulating Market...' : 'Run Trade Simulation'}
+              </button>
+              
+              <button
+                id="reset-trade-sim-btn"
+                onClick={handleReset}
+                disabled={isSimulating}
+                className="p-2.5 rounded-lg bg-neutral-950 hover:bg-neutral-800 border border-neutral-800 text-neutral-400 hover:text-neutral-200 transition-all disabled:opacity-50 flex items-center justify-center"
+                title="Reset simulation"
+              >
+                <RotateCcw size={14} />
+              </button>
             </div>
           </div>
-          <div className="text-center">
-            <div className="text-[9px] font-mono text-neutral-500 tracking-wider uppercase">Risk Model</div>
-            <div className="text-sm font-bold font-mono text-emerald-400">
-              {activePreset !== 'none' ? 'Strict 1.0%' : '—'}
+
+          {/* Concept Hint Footer */}
+          <div className="mt-3 flex items-start gap-2 bg-blue-950/20 border border-blue-900/30 p-3 rounded-lg text-[11px] text-blue-300 leading-relaxed font-sans">
+            <Info size={14} className="shrink-0 text-blue-400 mt-0.5" />
+            <div>
+              {activePreset === 'none' ? (
+                <span><strong>Pro Lesson:</strong> Select a Buy or Sell setup above to reveal institutional concepts. Note how the Buy position aligns exactly inside a high-probability demand zone, and the Sell position aligns with a supply block sweep.</span>
+              ) : activePreset === 'long' ? (
+                <span><strong>Long Context:</strong> The entry is placed immediately after an liquidity sweep (sweeping equal lows) followed by a strong bullish Change of Character (CHoCH). Stop Loss sits strictly below structural invalidation. Risk-to-Reward is optimized for high probability.</span>
+              ) : (
+                <span><strong>Short Context:</strong> The entry targets premium supply blocks after price completes a major institutional sweep of equal highs. This captures high-probability downside order flow directly into Fair Value Gaps (FVG) resting below.</span>
+              )}
             </div>
           </div>
-          <div className="text-center">
-            <div className="text-[9px] font-mono text-neutral-500 tracking-wider uppercase">Setup Quality</div>
-            <div className="text-sm font-bold font-mono text-blue-400">
-              {activePreset !== 'none' ? 'A+ Institutional' : '—'}
+        </>
+      ) : (
+        <>
+          {/* TradingView Info Panel */}
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-3 items-center gap-4 bg-neutral-900/60 p-4 border border-neutral-800 rounded-xl">
+            <div className="flex flex-col gap-1 md:col-span-2">
+              <span className="text-[10px] font-mono tracking-wider text-blue-500 font-bold uppercase">1. Live Market Feed</span>
+              <p className="text-xs leading-relaxed text-neutral-400">
+                You are connected directly to the institutional feed of <strong>{pair}</strong> ({timeframe} Timeframe). Use TradingView's professional indicators, order blocks, and drawing tools to map live liquidity setups in real-time.
+              </p>
+            </div>
+            <div className="flex justify-end gap-2 w-full md:col-span-1">
+              <a
+                href={`https://www.tradingview.com/symbols/${tvSymbol}/`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full md:w-auto text-center py-2.5 px-4 rounded-lg text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white border border-blue-500 hover:border-blue-400 transition-all shadow-lg flex items-center justify-center gap-1.5"
+              >
+                Analyze on TradingView <ExternalLink size={14} />
+              </a>
             </div>
           </div>
-        </div>
 
-        {/* Simulation Actions */}
-        <div className="flex gap-2">
-          <button
-            id="run-trade-sim-btn"
-            onClick={playSimulation}
-            disabled={isSimulating || activePreset === 'none'}
-            className="flex-1 py-2.5 px-4 rounded-lg text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white border border-blue-500 hover:border-blue-400 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-blue-950/50 flex items-center justify-center gap-2"
-          >
-            <Play size={14} className={isSimulating ? 'animate-pulse' : ''} />
-            {isSimulating ? 'Simulating Market...' : 'Run Trade Simulation'}
-          </button>
-          
-          <button
-            id="reset-trade-sim-btn"
-            onClick={handleReset}
-            disabled={isSimulating}
-            className="p-2.5 rounded-lg bg-neutral-950 hover:bg-neutral-800 border border-neutral-800 text-neutral-400 hover:text-neutral-200 transition-all disabled:opacity-50 flex items-center justify-center"
-            title="Reset simulation"
-          >
-            <RotateCcw size={14} />
-          </button>
-        </div>
-      </div>
-
-      {/* Concept Hint Footer */}
-      <div className="mt-3 flex items-start gap-2 bg-blue-950/20 border border-blue-900/30 p-3 rounded-lg text-[11px] text-blue-300 leading-relaxed font-sans">
-        <Info size={14} className="shrink-0 text-blue-400 mt-0.5" />
-        <div>
-          {activePreset === 'none' ? (
-            <span><strong>Pro Lesson:</strong> Select a Buy or Sell setup above to reveal institutional concepts. Note how the Buy position aligns exactly inside a high-probability demand zone, and the Sell position aligns with a supply block sweep.</span>
-          ) : activePreset === 'long' ? (
-            <span><strong>Long Context:</strong> The entry is placed immediately after an liquidity sweep (sweeping equal lows) followed by a strong bullish Change of Character (CHoCH). Stop Loss sits strictly below structural invalidation. Risk-to-Reward is optimized for high probability.</span>
-          ) : (
-            <span><strong>Short Context:</strong> The entry targets premium supply blocks after price completes a major institutional sweep of equal highs. This captures high-probability downside order flow directly into Fair Value Gaps (FVG) resting below.</span>
-          )}
-        </div>
-      </div>
+          {/* Educational Note */}
+          <div className="mt-3 flex items-start gap-2 bg-emerald-950/20 border border-emerald-900/30 p-3 rounded-lg text-[11px] text-emerald-300 leading-relaxed font-sans">
+            <Info size={14} className="shrink-0 text-emerald-400 mt-0.5" />
+            <div>
+              <span><strong>TradingView Mastery Tip:</strong> Use the live chart tools to spot <i>Fair Value Gaps (FVG)</i>, <i>Change of Character (CHoCH)</i>, and <i>Market Structure Break (MSB)</i>. The live market offers infinite opportunities when aligned with disciplined risk management models.</span>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

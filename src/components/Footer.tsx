@@ -1,5 +1,6 @@
 import { Theme } from '../types';
 import { Send, MessageCircle, Instagram, Facebook, ArrowUp } from 'lucide-react';
+import Logo from './Logo';
 
 interface FooterProps {
   theme: Theme;
@@ -25,18 +26,8 @@ export default function Footer({ theme }: FooterProps) {
           
           {/* Logo Brand Descriptor (Col 5) */}
           <div className="md:col-span-5 flex flex-col gap-4">
-            <div className="flex items-center gap-2.5">
-              <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-black text-lg tracking-tighter">
-                ND
-              </div>
-              <div className="flex flex-col">
-                <span className="text-sm font-black tracking-widest text-white uppercase">
-                  ND SUPER MARKET MASTERY
-                </span>
-                <span className="text-[9px] text-blue-500 font-bold tracking-widest uppercase">
-                  FOREX EDUCATION & MENTORSHIP
-                </span>
-              </div>
+            <div className="flex items-center">
+              <Logo theme="dark" />
             </div>
             
             <p className="text-xs leading-relaxed max-w-sm text-neutral-400 font-sans">

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Sun, Moon, Sparkles, Send, MessageCircle } from 'lucide-react';
 import { Theme } from '../types';
+import Logo from './Logo';
 
 interface HeaderProps {
   theme: Theme;
@@ -45,21 +46,9 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
         <div className="flex items-center justify-between h-20">
           
           {/* Logo Brand */}
-          <div className="flex-shrink-0 flex items-center gap-2">
-            <a href="#" className="flex items-center gap-2 group">
-              <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-black text-lg tracking-tighter shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-all">
-                ND
-              </div>
-              <div className="flex flex-col">
-                <span className={`text-sm font-black tracking-widest ${
-                  theme === 'dark' ? 'text-white' : 'text-neutral-950'
-                }`}>
-                  SUPER MARKET MASTERY
-                </span>
-                <span className="text-[9px] text-blue-500 font-bold tracking-widest uppercase">
-                  FOREX EDUCATION & MENTORSHIP
-                </span>
-              </div>
+          <div className="flex-shrink-0 flex items-center">
+            <a href="#" className="flex items-center group transition-transform duration-200 hover:scale-[1.02]">
+              <Logo theme={theme} />
             </a>
           </div>
 
